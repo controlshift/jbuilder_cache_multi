@@ -17,6 +17,8 @@ GEM
       bundler
       rake
       thor (>= 0.14.0)
+    dalli (2.7.4)
+    docile (1.1.5)
     i18n (0.7.0)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
@@ -29,6 +31,11 @@ GEM
     multi_json (1.11.2)
     power_assert (0.2.2)
     rake (10.4.2)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     test-unit (3.0.8)
       power_assert
     thor (0.19.1)
@@ -41,9 +48,11 @@ PLATFORMS
 
 DEPENDENCIES
   appraisal
+  dalli
   jbuilder_cache_multi!
   mocha
   rake
+  simplecov
   test-unit
 
 BUNDLED WITH

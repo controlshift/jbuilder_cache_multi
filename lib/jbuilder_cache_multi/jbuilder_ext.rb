@@ -15,6 +15,13 @@ JbuilderTemplate.class_eval do
         results = ::Rails.cache.fetch_multi(*keys_to_collection_map.keys, options) do |key|
           _scope { yield keys_to_collection_map[key] }
         end
+      # in rails 3, fetch_multi is not supported natively, but the dalli memcached client gem provides it directly.   
+      elsif ::Rails.cache.respond_to?(:dalli) && Rails::VERSION::MAJOR == 3
+        ::Rails.cache.dalli.with do |client|
+          results = client.fetch_multi(*keys_to_collection_map.keys, options) do |key|
+            _scope { yield keys_to_collection_map[key] }
+          end
+        end
       else
         results = keys_to_collection_map.map do |key, item|
           ::Rails.cache.fetch(key, options) { _scope { yield item } }
